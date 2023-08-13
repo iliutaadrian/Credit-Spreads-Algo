@@ -191,7 +191,7 @@ def chatbot():
     user_message = request.json.get('userMessage')
     chat_history = request.json.get('chatHistory')
 
-    result = get_chatbot_response(user_message, chat_history)
+    result = controller.get_chatbot_response(user_message, chat_history)
     response = {'botResponse': result['answer']}
 
     return jsonify(response)
