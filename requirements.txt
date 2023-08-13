@@ -7,3 +7,4 @@ langchain
 pinecone-client
 openai
 SQLAlchemy
+ydata-profiling
