@@ -1,0 +1,22 @@
+<div class="navbar-title">Lux Credit Spreads</div>
+<nav class="navbar">
+    <div class="navbar-links">
+        <a href="/" {% if active_page == 'trade-ideas' %}class="active"{% endif %}>Trades Ideas</a>
+        <a href="/trades-tracker" {% if active_page == 'trades-tracker' %}class="active"{% endif %}>Trades Tracker</a>
+        <a href="/trades-backtest" {% if active_page == 'trades-backtest' %}class="active"{% endif %}>Trades Backtest</a>
+        <a href="/chatbot" {% if active_page == 'chatbot' %}class="active"{% endif %}>AI Chat</a>
+    </div>
+</nav>
+
+<script>
+    setInterval(glowNavbarTitle, 3000);
+
+    function glowNavbarTitle() {
+        // Remove the glowEvery3s animation class and re-add it after a delay
+        const navbarTitle = document.querySelector('.navbar-title');
+        navbarTitle.classList.remove('glowEvery3s');
+        setTimeout(() => {
+            navbarTitle.classList.add('glowEvery3s');
+        }, 50); // Delay must match the keyframes definition
+    }
+</script>

@@ -1,0 +1,426 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #0a0a0a;
+    color: #fff;
+}
+
+.navbar {
+    background-color: #1a1a1a;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-title {
+    text-align: center;
+    /*color: #7d00b7;*/
+    color: #c853ff;
+    font-weight: bold;
+    font-size: 40px;
+    margin: 40px;
+    text-shadow: 0 -4px 10px rgba(125, 0, 183, 0.4);
+    animation: glowing 2s infinite alternate, glowEvery3s 6s infinite;
+}
+
+@keyframes glowing {
+    0% {
+        text-shadow: 0 -4px 10px rgba(125, 0, 183, 0.4);
+    }
+    100% {
+        text-shadow: 0 -4px 20px rgba(125, 0, 183, 0.8);
+    }
+}
+
+@keyframes glowEvery3s {
+    0%, 100% {
+        text-shadow: none;
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(197, 113, 238, 0.6);
+    }
+}
+
+.navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-links a:hover {
+    color: #c853ff; /* Purple color on hover */
+    text-decoration: none;
+}
+
+.form-group {
+    margin: 15px;
+    display: grid;
+}
+
+.trade-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.trade-card {
+    background-color: #1a1a1a;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.trade-card:hover {
+    background-color: #262525;
+}
+
+.navbar-links a.active {
+    color: #c853ff;
+    padding-bottom: 15px;
+    text-transform: uppercase;
+    border-bottom: 5px solid #c853ff;
+}
+
+.ticker {
+    font-size: 24px;
+    color: #c853ff; /* Purple color for ticker */
+}
+
+.trades-text{
+    margin-top: 15px;
+    text-align: center;
+}
+
+.strategy {
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
+.details{
+    color: #95819e;
+    margin:5px;
+}
+
+.trade-btns{
+    padding-bottom: 5px;
+    padding-top: 15px;
+}
+
+.track-btn {
+    cursor: pointer;
+    color: #c853ff; /* Purple color for track button */
+}
+
+.track-btn:hover {
+    text-decoration: underline;
+}
+
+.track-info {
+    display: none;
+    margin-top: 10px;
+}
+
+.trade-details{
+    font-weight: 900;
+}
+
+/* Add this to your existing CSS styles */
+.live-prices {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.price-card {
+    background-color: rgb(18 1 26);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0px 0px 2px 0px #7d00b7;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 450px;
+}
+
+.price-card .ticker {
+    color: #c853ff;
+}
+
+.price-card .price {
+    color: white; /* Accent color for live price */
+}
+
+.trade-history{
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.trade-table {
+    width: 80%;
+    border-collapse: collapse;
+    text-align: center;
+    margin: 10px auto;
+}
+
+
+.trade-row {
+    height: 90px;
+    background-color: rgb(18 1 26);
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.ticker-column{
+    color: #c853ff;
+}
+
+.header-row{
+    background: #1a1a1a;
+    height: 90px;
+}
+
+.trade-row:hover {
+    background-color: #2e0343;
+}
+
+
+
+/* Styles for action buttons */
+.action-button {
+    background-color: #c853ff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.action-button:hover {
+    background-color: #7d00b7;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.trades-traker-chart {
+    background-color: rgb(18 1 26);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0px 0px 2px 0px #7d00b7;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 700px;
+}
+
+/* Custom CSS for Stat Cards */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns per grid */
+    gap: 20px;
+}
+
+.stat-card {
+    background-color: rgb(26 26 26);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 2px 0px #7d00b7;
+    text-align: center;
+}
+
+.stat-label {
+    font-weight: bold;
+    color: #c853ff;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 20px;
+    color: white;
+}
+
+.trade-popup {
+    background-color: #1a1a1a;
+    padding: 10px 70px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+    width: 400px;
+}
+
+.trade-popup-btn{
+    height: 30px;
+    margin-top: 10px;
+    background: #c853ff;
+    font-weight: 900;
+}
+
+.trade-popup-btn:hover{
+    background: #c853ff
+}
+
+.tab-strategy{
+    cursor: pointer;
+    background-color: #12011a;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0px 0px 2px 0px #7d00b7;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+
+.tab-strategy a{
+    text-decoration: none;
+    color: #f9f9f9;
+}
+
+.tab-strategy-active{
+    background-color: #2e0343;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        font-size: 11px;
+    }
+
+    .price-card {
+        width: 300px;
+    }
+
+    .navbar-title{
+        font-size: 30px;
+    }
+
+    .trades-traker-chart {
+        margin: 20px;
+        width: 400px;
+    }
+
+    .stat-card {
+        width: 130px;
+        font-size: 10px;
+    }
+
+    .stat-value {
+        font-size: 15px;
+    }
+
+    .trades-text{
+        font-size: 20px;
+        text-align: center
+    }
+
+    .header-row{
+        font-size: 13px;
+        height: 65px;
+    }
+
+    .header-row th{
+        min-width: 80px;
+    }
+
+    .trade-row{
+        font-size: 10px;
+        height: 60px;
+    }
+
+    .action-buttons {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .action-button {
+        margin-right: 5px !important;
+        font-size: 10px;
+    }
+
+    .tab-strategy {
+        width: 150px;
+        font-size: 13px;
+    }
+
+    .trade-table th, .trade-table td {
+        border: 1px solid rgba(125, 0, 183, 0.4);
+        padding: 8px;
+    }
+
+    .navbar-links{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar-links a {
+        margin: 10px 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #c853ff3b;
+    }
+
+    .navbar-links a.active {
+        padding-bottom: 10px;
+        border-bottom: 2px solid #c853ff;
+    }
+
+    .modal-content {
+        width: 300px;
+    }
+}
+

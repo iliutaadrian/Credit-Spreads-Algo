@@ -1,0 +1,81 @@
+<!-- dashboard.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+<div id="chatbotModal" class="trade-section">
+    <div class="chat-content">
+        <h2 class="ticker">Chatbot</h2>
+        <div class="chat-messages">
+            <!-- Chat messages will be displayed here -->
+            <div class="message bot">
+                <div class="avatar">
+                    <img src="static/bot.png" alt="Bot Avatar">
+                </div>
+                <p class="message-text">Hey, I'm here to help! What's your question?</p>
+            </div>
+        </div>
+        <div class="input-box">
+            <input type="text" id="chatInput" placeholder="Type your message...">
+            <button id="sendMessage" class="action-button">Send</button>
+        </div>
+    </div>
+</div>
+
+<style>
+img{
+    width: 50px;
+    background: #7d00b73d;
+    border-radius: 50%;
+}
+.chat-content {
+    background-color: #1a1a1a;
+    padding: 10px 0;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 600px;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.message.user {
+    display: flex;
+    justify-content: right;
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.message.bot {
+    display: flex;
+    text-align: left;
+}
+
+.chat-messages {
+    height: 250px;
+    overflow-y: scroll;
+    margin-top: 10px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    background-color: #434654;
+    color: #fff;
+}
+
+.message-text {
+    padding: 0 10px;
+}
+
+.input-box {
+    margin-top: 15px;
+}
+
+#chatInput {
+    padding: 7px;
+    width: 80%;
+    background: #444654;
+    color: white;
+}
+
+</style>
+
+{% endblock %}

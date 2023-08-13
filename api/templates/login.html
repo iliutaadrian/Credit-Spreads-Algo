@@ -1,0 +1,26 @@
+<!-- dashboard.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <div class="modal-content">
+            <h2 class="ticker">Login</h2>
+            <form id="closeModalForm" method="POST" action="/login">
+                <div class="form-group">
+                    <label class="details" for="email">Email</label>
+                    <input type="email" id="email" name="email" value="iliuta@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="details" for="password">Password</label>
+                    <input type="password" id="password" name="password" value="parola">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="action-button">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

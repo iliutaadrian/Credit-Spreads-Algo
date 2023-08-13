@@ -1,0 +1,111 @@
+<!-- dashboard.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="live-prices">
+        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Trend Up' else '' }}">
+            <a href="/trades-backtest?name=Trend Up">
+                <p>Trend Up</p>
+            </a>
+        </div>
+        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Trend Sideways' else '' }}">
+            <a href="/trades-backtest?name=Trend Sideways">
+                <p>Trend Sideways</p>
+            </a>
+        </div>
+        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Trend Down' else '' }}">
+            <a href="/trades-backtest?name=Trend Down">
+                <p>Trend Down</p>
+            </a>
+        </div>
+        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Dip buy' else '' }}">
+            <a href="/trades-backtest?name=Dip buy">
+                <p>Dip buy</p>
+            </a>
+        </div>
+        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Over Extended' else '' }}">
+            <a href="/trades-backtest?name=Over Extended">
+                <p>Over Extended</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="live-prices">
+        <div class="trades-traker-chart">
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <canvas id="tradeChart"></canvas>
+        </div>
+        <div class="stats-container">
+            {% for stat in stats %}
+            <div class="stat-card">
+                <div class="stat-label">{{ stat.label }}</div>
+                <div class="stat-value">{{ stat.value }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var ctx = document.getElementById('tradeChart').getContext('2d');
+
+            var tradeLabels = {{ trade_labels|tojson }};
+            var tradeValues = {{ trade_values|tojson }};
+
+            var tradeChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: tradeLabels,
+                    datasets: [{
+                        label: 'Acccount Value',
+                        data: tradeValues,
+                        borderColor: '#95819e',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+
+                }
+            });
+        });
+    </script>
+
+    <div class="trade-history">
+        <table class="trade-table">
+            <thead>
+                <tr class="header-row">
+                    <th>Result</th>
+                    <th>Strategy</th>
+                    <th>Entry Price</th>
+                    <th>Entry Date</th>
+                    <th>Expiration</th>
+                    <th>Details</th>
+                    <th>Credit Collected</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trade in trades %}
+                <tr class="trade-row">
+                    <td>{{ trade.status }}</td>
+                    <td><span class="ticker-column">{{ trade.strategy_name }}</span></td>
+                    <td>{{ trade.current_price }}</td>
+                    <td>{{ trade.date_alerted }}</td>
+                    <td>{{ trade.expiration_date }}</td>
+                    <td>
+                        {{trade.ticker}} -
+                        {% if trade.option_type == 'put' %}
+                            Put Credit Spread -
+                            ${{ trade.strike_prices|int }}/${{ (trade.strike_prices - 2)|int }}
+                        {% elif trade.option_type == 'call' %}
+                            Call Credit Spread -
+                            ${{ trade.strike_prices|int }}/${{ (trade.strike_prices + 2)|int }}
+                        {% endif %}</td>
+                    <td>{{ trade.min_credit }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

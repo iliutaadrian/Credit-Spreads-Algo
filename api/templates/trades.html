@@ -1,0 +1,124 @@
+<!-- dashboard.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <script>
+        var trades = {{ trades }};
+    </script>
+    <script src="{{ url_for('static', filename='modal.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div class="live-prices">
+        {% for stock in stock_data %}
+        <div class="price-card">
+            <p class="ticker">${{ stock.stock_symbol }} <span class="price">${{ stock.live_price }}</span></p>
+            <canvas class="chart-canvas" id="chart-{{ stock.stock_symbol }}"></canvas>
+            <script>
+                var chartCanvas = document.getElementById('chart-{{ stock.stock_symbol }}');
+
+                var dateLabels = {{ stock.date_labels|tojson }};
+                var valueLabels = {{ stock.value_labels|tojson }};
+
+                new Chart(chartCanvas, {
+                    type: 'line',
+                    data: {
+                        labels: dateLabels,
+                        datasets: [{
+                            label: 'Price 30 days',
+                            data: valueLabels,
+                            borderColor: '#95819e',
+
+                        }]
+                    }
+                });
+            </script>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="trade-section">
+        {% for trade in trades %}
+        <div class="trade-card">
+            <p class="ticker">${{ trade.ticker }}</p>
+            <p class="strategy">{{ trade.strategy_name }}</p>
+            <p><span class="details">Date Alerted:</span> {{ trade.date_alerted }}</p>
+            <p><span class="details">Expiration:</span> {{ trade.expiration_date }}</p>
+            <p class="trade-details">
+                <span class="details">Trade:</span>
+                {{ trade.option_type }}
+                {% if trade.option_type == 'put' %}
+                    ${{ trade.strike_prices|int }}/${{ (trade.strike_prices - 2)|int }}
+                {% elif trade.option_type == 'call' %}
+                    ${{ trade.strike_prices|int }}/${{ (trade.strike_prices + 2)|int }}
+                {% endif %}
+            </p>
+            <p><span class="details">Minimum credit:</span> {{ trade.min_credit }}</p>
+            <div class="trade-btns">
+                <a class="track-btn" onclick="openModal('createModal', {{ trade.id }})">Track Trade</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('createModal')">&times;</span>
+            <h2 class="ticker">Create Trade</h2>
+            <form id="createModalForm" method="POST" action="/create">
+                <div class="form-group">
+                    <label class="details" for="ticker">Ticker</label>
+                    <select id="ticker" name="ticker">
+                        <option value="SPY">SPY</option>
+                        <option value="QQQ">QQQ</option>
+                        <option value="DIA">DIA</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="details" for="trade_type">Type</label>
+                    <select id="trade_type" name="trade_type">
+                        <option value="put">Put Credit Spread</option>
+                        <option value="call">Call Credit Spread</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="details" for="sold_strike_price">Sold Strike Price</label>
+                    <input type="number" id="sold_strike_price" name="sold_strike_price" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="details" for="position_size">Position</label>
+                    <input type="number" id="position_size" name="position_size" value="4">
+                </div>
+
+                <div class="form-group">
+                    <label class="details" for="credit_to_open">Credit To Open</label>
+                    <input type="text" id="credit_to_open" name="credit_to_open" value="23" onblur="applyMathExpressionToInput('createModal', 'credit_to_open')">
+                </div>
+
+                <div class="form-group">
+                    <label class="details" for="commission">Commission</label>
+                    <input type="number" id="commission" name="commission" value="5">
+                </div>
+
+                <div class="form-group">
+                    <label class="details" for="trade_open_date">Trade Open</label>
+                    <input type="date" id="trade_open_date" name="trade_open_date" value="{{ current_date }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="details" for="trade_expiration_date">Trade Expiration</label>
+                    <input type="date" id="trade_expiration_date" name="trade_expiration_date">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="action-button">Submit Trade</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script>
+</script>
+{% endblock %}
