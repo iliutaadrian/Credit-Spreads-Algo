@@ -8,3 +8,4 @@ pinecone-client
 openai
 SQLAlchemy
 ydata-profiling
+gunicorn
