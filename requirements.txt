@@ -10,3 +10,4 @@ SQLAlchemy
 ydata-profiling
 gunicorn
 psycopg2
+tiktoken
