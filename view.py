@@ -1,7 +1,7 @@
 import datetime
 import os
-from api.model import UserTrade, Trade, User
-import api.controller
+from model import UserTrade, Trade, User
+import controller
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from dotenv import load_dotenv
@@ -49,7 +49,7 @@ def index():
     stock_data = []
 
     for stock_symbol in stocks:
-        live_price, date_labels, value_labels = api.controller.get_chart_data(stock_symbol)
+        live_price, date_labels, value_labels = controller.get_chart_data(stock_symbol)
         stock_data.append({
             'stock_symbol': stock_symbol,
             'live_price': round(live_price, 2),
@@ -116,7 +116,7 @@ def trades_tracker():
     stocks_data = {}
 
     for stock_symbol in stocks:
-        live_price, _, _ = api.controller.get_chart_data(stock_symbol)
+        live_price, _, _ = controller.get_chart_data(stock_symbol)
         stocks_data[stock_symbol] = round(live_price, 2)
 
     return render_template('trades_tracker.html', active_page='trades-tracker',
@@ -186,14 +186,14 @@ def trades_backtest():
 @app.route('/chatbot', methods=['GET','POST'])
 def chatbot():
     if request.method == 'GET':
-        result = api.controller.get_chatbot_response("what is the strategy name", [])
+        result = controller.get_chatbot_response("what is the strategy name", [])
 
         return render_template('chatbot.html', active_page='chatbot', result=result)
 
     user_message = request.json.get('userMessage')
     chat_history = request.json.get('chatHistory')
 
-    result = api.get_chatbot_response(user_message, chat_history)
+    result = get_chatbot_response(user_message, chat_history)
     response = {'botResponse': result['answer']}
 
     return jsonify(response)
