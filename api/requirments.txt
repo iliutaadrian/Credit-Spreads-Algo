@@ -9,3 +9,4 @@ pinecone-client
 openai
 tiktoken
 psycopg2
+SQLAlchemy
