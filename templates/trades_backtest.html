@@ -3,28 +3,28 @@
 
 {% block content %}
     <div class="live-prices">
-        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Trend Up' else '' }}">
-            <a href="/trades-backtest?name=Trend Up">
+        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Trend_Up' else '' }}">
+            <a href="/trades-backtest?name=Trend_Up">
                 <p>Trend Up</p>
             </a>
         </div>
-        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Trend Sideways' else '' }}">
-            <a href="/trades-backtest?name=Trend Sideways">
+        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Trend_Sideways' else '' }}">
+            <a href="/trades-backtest?name=Trend_Sideways">
                 <p>Trend Sideways</p>
             </a>
         </div>
-        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Trend Down' else '' }}">
-            <a href="/trades-backtest?name=Trend Down">
+        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Trend_Down' else '' }}">
+            <a href="/trades-backtest?name=Trend_Down">
                 <p>Trend Down</p>
             </a>
         </div>
-        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Dip buy' else '' }}">
-            <a href="/trades-backtest?name=Dip buy">
+        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Dip_buy' else '' }}">
+            <a href="/trades-backtest?name=Dip_buy">
                 <p>Dip buy</p>
             </a>
         </div>
-        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Over Extended' else '' }}">
-            <a href="/trades-backtest?name=Over Extended">
+        <div class="tab-strategy{{ ' tab-strategy-active' if request.args.get('name') == 'Over_Extended' else '' }}">
+            <a href="/trades-backtest?name=Over_Extended">
                 <p>Over Extended</p>
             </a>
         </div>

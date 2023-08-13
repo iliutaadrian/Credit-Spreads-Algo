@@ -9,3 +9,4 @@ openai
 SQLAlchemy
 ydata-profiling
 gunicorn
+psycopg2

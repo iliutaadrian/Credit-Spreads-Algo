@@ -126,13 +126,13 @@ def trades_tracker():
 
 @app.route('/trades-backtest')
 def trades_backtest():
-    strategy_name = request.args.get('name') or 'Trend%20Up'
+    strategy_name = request.args.get('name') or 'Trend_Up'
     if 'name' not in request.args:
-        return redirect(url_for('trades_backtest', name='Trend%20Up'))
+        return redirect(url_for('trades_backtest', name='Trend_Up'))
 
     current_date = datetime.date.today()
 
-    trades = Trade.get_all(strategy=strategy_name)
+    trades = Trade.get_all(strategy=strategy_name.replace('_', ' '))
     filter_trades = []
 
     initial_amount = 0
@@ -186,9 +186,7 @@ def trades_backtest():
 @app.route('/chatbot', methods=['GET','POST'])
 def chatbot():
     if request.method == 'GET':
-        result = controller.get_chatbot_response("what is the strategy name", [])
-
-        return render_template('chatbot.html', active_page='chatbot', result=result)
+        return render_template('chatbot.html', active_page='chatbot')
 
     user_message = request.json.get('userMessage')
     chat_history = request.json.get('chatHistory')
