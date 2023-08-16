@@ -48,6 +48,21 @@ class Trade(Base):
         self.min_credit = min_credit
         self.status = status
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'ticker': self.ticker,
+            'strategy_name': self.strategy_name,
+            'current_price': self.current_price,
+            'ma_std': self.ma_std,
+            'date_alerted': self.date_alerted,
+            'expiration_date': self.expiration_date,
+            'option_type': self.option_type,
+            'strike_prices': self.strike_prices,
+            'min_credit': self.min_credit,
+            'status': self.status
+        }
+
     @staticmethod
     def get_all(strategy=None):
         session = get_database_session()
@@ -103,10 +118,26 @@ class UserTrade(Base):
     commission = Column(Float, default=5.0)
     trade_open_date = Column(Date)
     trade_expiration_date = Column(Date)
-    status = Column(String(20), default='open')
+    status = Column(String(20), default='')
     credit_to_close = Column(Integer)
     trade_close_date = Column(Date)
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'ticker': self.ticker,
+            'trade_type': self.trade_type,
+            'sold_strike_price': self.sold_strike_price,
+            'credit_to_open': self.credit_to_open,
+            'position_size': self.position_size,
+            'commission': self.commission,
+            'trade_open_date': self.trade_open_date,
+            'trade_expiration_date': self.trade_expiration_date,
+            'status': self.status,
+            'credit_to_close': self.credit_to_close,
+            'trade_close_date': self.trade_close_date
+        }
 
     @staticmethod
     def get_all(user_id):

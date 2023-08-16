@@ -42,7 +42,8 @@ def login():
 def index():
     current_date = datetime.date.today()
 
-    trades = Trade.get_all()
+    trades_all = Trade.get_all()
+    trades = [trade.to_dict() for trade in trades_all]
     user_trades = UserTrade.get_all(user_id=1)
 
     stocks = ['SPY', 'QQQ', 'DIA']
@@ -65,7 +66,8 @@ def index():
 def trades_tracker():
     current_date = datetime.date.today()
 
-    user_trades = UserTrade.get_all(user_id=1)
+    user_trades_all = UserTrade.get_all(user_id=1)
+    user_trades = [trade.to_dict() for trade in user_trades_all]
     user_open_trades = []
     user_closed_trades = []
 
@@ -79,7 +81,7 @@ def trades_tracker():
     total_return = 0
     trade_accuracy = 0
 
-    for trade in user_trades:
+    for trade in user_trades_all:
         if trade.status == 'open':
             user_open_trades.append(trade)
             current_contracts_number += trade.position_size
