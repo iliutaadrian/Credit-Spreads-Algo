@@ -1,3 +1,6 @@
+Python, flask, Jinja, Langchain, OpenAi, Pinecone, Psql
+
+
 pip install -r requirements.txt
 
 gunicorn index:app
